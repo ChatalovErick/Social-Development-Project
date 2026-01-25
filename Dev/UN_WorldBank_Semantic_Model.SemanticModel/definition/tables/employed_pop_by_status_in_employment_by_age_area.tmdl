@@ -1,0 +1,90 @@
+table employed_pop_by_status_in_employment_by_age_area
+	lineageTag: c6effd23-d220-425d-8ff5-16aeea7f8e10
+	sourceLineageTag: [dbo].[employed_pop_by_status_in_employment_by_age_area]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: c1b0119a-d38c-48fe-a910-cbf9139a2b98
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_or_Area_Code
+		dataType: string
+		lineageTag: 29d4822e-a26a-4d40-a829-eb97802220d2
+		sourceLineageTag: Country_or_Area_Code
+		summarizeBy: none
+		sourceColumn: Country_or_Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 6580b083-7dbe-442f-bae2-e97767283ca0
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: f6b1f049-288e-461e-8b00-915c16532a8d
+		sourceLineageTag: Area_Code
+		summarizeBy: count
+		sourceColumn: Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 4255e40a-d228-4f73-8287-468bc5956691
+		sourceLineageTag: Sex_Code
+		summarizeBy: count
+		sourceColumn: Sex_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 9e511a60-8875-4308-8868-cef615e7f596
+		sourceLineageTag: Age
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code_of_Status_in_employment
+		dataType: int64
+		formatString: 0
+		lineageTag: 524a4af4-f660-4f97-b55d-28312ef100bf
+		sourceLineageTag: Code_of_Status_in_employment
+		summarizeBy: sum
+		sourceColumn: Code_of_Status_in_employment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 20e952c9-ef63-40c9-8a75-19d06598cca6
+		sourceLineageTag: Value
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition employed_pop_by_status_in_employment_by_age_area = entity
+		mode: directLake
+		source
+			entityName: employed_pop_by_status_in_employment_by_age_area
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

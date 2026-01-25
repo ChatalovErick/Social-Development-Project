@@ -1,0 +1,81 @@
+table pop_age_sex_urban_rural
+	lineageTag: 6711d09b-d021-423d-801d-22847658ad81
+	sourceLineageTag: [dbo].[pop_age_sex_urban_rural]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: efe070b2-959f-4618-92a2-612443d7d110
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_or_Area_Code
+		dataType: string
+		lineageTag: e8da8551-0e5e-4147-8595-c84721d5d951
+		sourceLineageTag: Country_or_Area_Code
+		summarizeBy: none
+		sourceColumn: Country_or_Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 07c3d775-8851-4443-80b8-ca9a717c7fad
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: b7234a7f-6516-43ec-b693-60aede0e839e
+		sourceLineageTag: Area_Code
+		summarizeBy: count
+		sourceColumn: Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 84a38dc0-54ff-4f22-a15b-68d6ae695cac
+		sourceLineageTag: Sex_Code
+		summarizeBy: count
+		sourceColumn: Sex_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code_of_Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 2376e53c-cda4-4c53-b741-a99ff738d5c9
+		sourceLineageTag: Code_of_Age
+		summarizeBy: sum
+		sourceColumn: Code_of_Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 2d83a962-36b4-486e-9487-4a225eaec63e
+		sourceLineageTag: Value
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition pop_age_sex_urban_rural = entity
+		mode: directLake
+		source
+			entityName: pop_age_sex_urban_rural
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

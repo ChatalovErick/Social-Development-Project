@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "UN Census Pipeline (Pipeline)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9c882500-0284-923b-410c-cdd8bce4b788"
+  }
+}

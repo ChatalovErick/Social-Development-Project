@@ -1,0 +1,82 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "UN Census Data Clean Up (DataFlow Gen2)",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "06408272-fe4b-4274-8d71-e9677224d659",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "pop_age_sex_urban_rural": {
+      "queryId": "10d77060-0346-4c0d-8c30-79d88ac3b673",
+      "queryName": "pop_age_sex_urban_rural",
+      "loadEnabled": false
+    },
+    "employed_pop_by_status_in_employment_by_age_area": {
+      "queryId": "0ec9a962-fe45-4edb-98d7-3e1bebea8806",
+      "queryName": "employed_pop_by_status_in_employment_by_age_area",
+      "loadEnabled": false
+    },
+    "gini_index": {
+      "queryId": "9cc8dea9-3041-4bb8-b23e-adc0c2ecd5bc",
+      "queryName": "gini_index",
+      "loadEnabled": false
+    },
+    "unemployment_rate": {
+      "queryId": "f763f7c6-c7c7-4052-9f95-20ab3948b8d1",
+      "queryName": "unemployment_rate",
+      "loadEnabled": false
+    },
+    "pop_attainment_demographics_15plus": {
+      "queryId": "cfd2361c-aad4-4c85-93ba-b29190bb7b19",
+      "queryName": "pop_attainment_demographics_15plus",
+      "loadEnabled": false
+    },
+    "school_attendance_urban_rural_5to24": {
+      "queryId": "d3d0f5d9-cab4-4e61-a6a9-1015c96a2d88",
+      "queryName": "school_attendance_urban_rural_5to24",
+      "loadEnabled": false
+    },
+    "pop_age_sex_urban_rural_DataDestination": {
+      "queryId": "860e471e-2c7e-4917-90e5-5bafe4f3f724",
+      "queryName": "pop_age_sex_urban_rural_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "employed_pop_by_status_in_employment_by_age_area_DataDestination": {
+      "queryId": "605baa5b-911b-4156-86d2-e1dd1bb34e90",
+      "queryName": "employed_pop_by_status_in_employment_by_age_area_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "unemployment_rate_DataDestination": {
+      "queryId": "e237a9cb-2011-4d11-ad2d-6295deae2171",
+      "queryName": "unemployment_rate_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "pop_attainment_demographics_15plus_DataDestination": {
+      "queryId": "b8da63b3-e1fa-4215-b235-1ff986cf2012",
+      "queryName": "pop_attainment_demographics_15plus_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "school_attendance_urban_rural_5to24_DataDestination": {
+      "queryId": "4026e9ba-6c21-4945-b9d2-b4b4f10078fd",
+      "queryName": "school_attendance_urban_rural_5to24_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"859c4984-5e67-4c66-ab4f-8c7ba10be907\",\"DatasourceId\":\"a4fff1ff-8d27-4fff-9474-a34d3bee5364\"}"
+    }
+  ]
+}

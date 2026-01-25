@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "World Bank Data Clean Up Silver Layer (DataFlow Gen2)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c5b3b41a-d60e-9931-434c-5dd5057d343a"
+  }
+}

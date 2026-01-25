@@ -1,0 +1,84 @@
+table population_and_migration_global
+	lineageTag: 88826b49-c9e9-4599-b172-ff3cd1c358fa
+	sourceLineageTag: [dbo].[population_and_migration_global]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6257a012-1bf8-4836-8b2a-035fba7916a0
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_Code
+		dataType: string
+		lineageTag: 03dff4f5-1c6d-4670-868e-8dc0d358a315
+		sourceLineageTag: Country_Code
+		summarizeBy: none
+		sourceColumn: Country_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 302c36ed-fccb-48ae-936f-682feddb9f48
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Migrant_Stock_Total_Count
+		dataType: double
+		lineageTag: d1201bee-f80f-4e5a-8220-f0f5bb6e66ec
+		sourceLineageTag: Migrant_Stock_Total_Count
+		summarizeBy: sum
+		sourceColumn: Migrant_Stock_Total_Count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Pop_Total_Count
+		dataType: double
+		lineageTag: 2162d7c3-a2a3-4ab4-9dec-268c2061955f
+		sourceLineageTag: Pop_Total_Count
+		summarizeBy: sum
+		sourceColumn: Pop_Total_Count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Pop_Female_Count
+		dataType: double
+		lineageTag: a4db4992-a0ae-436a-8a1a-ac0e963d4a73
+		sourceLineageTag: Pop_Female_Count
+		summarizeBy: sum
+		sourceColumn: Pop_Female_Count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Pop_Male_Count
+		dataType: double
+		lineageTag: 17294696-7f79-4704-b779-a847fad80719
+		sourceLineageTag: Pop_Male_Count
+		summarizeBy: sum
+		sourceColumn: Pop_Male_Count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition population_and_migration_global = entity
+		mode: directLake
+		source
+			entityName: population_and_migration_global
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

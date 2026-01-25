@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "Word Bank Pipeline (Pipeline)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "209a1510-ffe8-a71a-44e4-fd7a0774252f"
+  }
+}

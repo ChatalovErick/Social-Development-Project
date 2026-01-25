@@ -1,0 +1,51 @@
+table fertility_rates_global
+	lineageTag: 14996203-06f4-4871-937a-600cf38f3221
+	sourceLineageTag: [dbo].[fertility_rates_global]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d9f9840-acec-4cd1-aa1e-2786cb47fdb6
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_Code
+		dataType: string
+		lineageTag: a423a4c4-b37d-43aa-9d96-a9cf3cd9d42d
+		sourceLineageTag: Country_Code
+		summarizeBy: none
+		sourceColumn: Country_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 693a25a8-b106-40ed-ae23-ef6a660ad9ae
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fertility_Rate_Births_Per_Woman
+		dataType: double
+		lineageTag: f60e0f43-30a5-42bd-ae9a-6271497aa634
+		sourceLineageTag: Fertility_Rate_Births_Per_Woman
+		summarizeBy: sum
+		sourceColumn: Fertility_Rate_Births_Per_Woman
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fertility_rates_global = entity
+		mode: directLake
+		source
+			entityName: fertility_rates_global
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

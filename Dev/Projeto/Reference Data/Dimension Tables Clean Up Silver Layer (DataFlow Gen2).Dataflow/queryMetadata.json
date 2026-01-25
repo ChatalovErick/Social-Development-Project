@@ -1,0 +1,99 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "Dimension Tables Clean Up Silver Layer (DataFlow Gen2)",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "661b1c58-063d-47aa-a7c6-f7822c8c13d6",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Reference_Database age_dimension": {
+      "queryId": "353b3e4c-f369-44f3-ad3b-e2be1640b934",
+      "queryName": "Reference_Database age_dimension",
+      "loadEnabled": false
+    },
+    "Reference_Database area_dimension": {
+      "queryId": "aa4f2996-ef0a-439f-84a0-8a57dc67dc83",
+      "queryName": "Reference_Database area_dimension",
+      "loadEnabled": false
+    },
+    "Reference_Database dim_geography_m49": {
+      "queryId": "83dda854-96a7-47a2-9338-a8de874e5215",
+      "queryName": "Reference_Database dim_geography_m49",
+      "loadEnabled": false
+    },
+    "Reference_Database education_attainment_15plus_dimension": {
+      "queryId": "2cc2731d-bb57-4db3-84e4-63e0af5642c4",
+      "queryName": "Reference_Database education_attainment_15plus_dimension",
+      "loadEnabled": false
+    },
+    "Reference_Database employment_status_dimension": {
+      "queryId": "0a541da4-fc27-42bf-aab4-a84984e205c1",
+      "queryName": "Reference_Database employment_status_dimension",
+      "loadEnabled": false
+    },
+    "Reference_Database school_attendance_dimension": {
+      "queryId": "ec8ff81b-36a7-4257-ab8d-73dbc3ca3c42",
+      "queryName": "Reference_Database school_attendance_dimension",
+      "loadEnabled": false
+    },
+    "Reference_Database sex_dimension": {
+      "queryId": "bdc43f81-dfd1-4dc7-aca7-8ddeee5777c1",
+      "queryName": "Reference_Database sex_dimension",
+      "loadEnabled": false
+    },
+    "Reference_Database age_dimension_DataDestination": {
+      "queryId": "f71c939e-dfeb-49fc-b42b-4ffb632a80b0",
+      "queryName": "Reference_Database age_dimension_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Reference_Database area_dimension_DataDestination": {
+      "queryId": "1170fecf-5007-4594-ad10-0313959bc8d2",
+      "queryName": "Reference_Database area_dimension_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Reference_Database dim_geography_m49_DataDestination": {
+      "queryId": "c2fb0a04-8c6f-42e8-9480-c0f3f577ece9",
+      "queryName": "Reference_Database dim_geography_m49_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Reference_Database education_attainment_15plus_dimension_DataDestination": {
+      "queryId": "b6bad901-170a-485d-a69a-2c808127b3bf",
+      "queryName": "Reference_Database education_attainment_15plus_dimension_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Reference_Database employment_status_dimension_DataDestination": {
+      "queryId": "fdd81d37-2e63-4728-9024-6ebcc573e847",
+      "queryName": "Reference_Database employment_status_dimension_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Reference_Database school_attendance_dimension_DataDestination": {
+      "queryId": "b3d95c11-51ac-4049-ab04-c8e9879f3d78",
+      "queryName": "Reference_Database school_attendance_dimension_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Reference_Database sex_dimension_DataDestination": {
+      "queryId": "b50dbf87-fcaa-4648-8c5b-1622546fd072",
+      "queryName": "Reference_Database sex_dimension_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"859c4984-5e67-4c66-ab4f-8c7ba10be907\",\"DatasourceId\":\"a4fff1ff-8d27-4fff-9474-a34d3bee5364\"}"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+table pop_attainment_demographics_15plus
+	lineageTag: fc02c498-3052-4d9e-88c3-3f97c044f4cf
+	sourceLineageTag: [dbo].[pop_attainment_demographics_15plus]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: ad76cddf-2225-43de-8845-5c051ebe681f
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_or_Area_Code
+		dataType: string
+		lineageTag: 296fcf35-b2ce-41bb-aa56-9c65a278edde
+		sourceLineageTag: Country_or_Area_Code
+		summarizeBy: none
+		sourceColumn: Country_or_Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ec7fa95c-9b9e-4e73-be59-27a985c97242
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: dc42a0f9-bb41-43c9-bc04-39fe0dac92a5
+		sourceLineageTag: Area_Code
+		summarizeBy: count
+		sourceColumn: Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 22f05ab9-adef-4f3d-87ae-04dc0e9a5922
+		sourceLineageTag: Sex_Code
+		summarizeBy: count
+		sourceColumn: Sex_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: c1191391-9e74-43fb-b8fc-f7b04540bafd
+		sourceLineageTag: Age
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code_of_Educational_attainment
+		dataType: int64
+		formatString: 0
+		lineageTag: 336093c4-ae8a-4e48-85c2-95eabfbdb443
+		sourceLineageTag: Code_of_Educational_attainment
+		summarizeBy: sum
+		sourceColumn: Code_of_Educational_attainment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 0676fef7-71cb-460a-a98b-20cb1da87975
+		sourceLineageTag: Value
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition pop_attainment_demographics_15plus = entity
+		mode: directLake
+		source
+			entityName: pop_attainment_demographics_15plus
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

@@ -1,0 +1,60 @@
+table unemployment_rate
+	lineageTag: 073ac0f1-23c5-4d78-9561-64524650fb51
+	sourceLineageTag: [dbo].[unemployment_rate]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 096030cc-23c3-4794-b0ac-1dcd03e38228
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_or_Area_Code
+		dataType: string
+		lineageTag: f90d77ca-16d9-4339-a38d-4b551a916d53
+		sourceLineageTag: Country_or_Area_Code
+		summarizeBy: none
+		sourceColumn: Country_or_Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subgroup
+		dataType: string
+		lineageTag: cc9dc579-b44f-483b-940e-aa1e69c4f937
+		sourceLineageTag: Subgroup
+		summarizeBy: none
+		sourceColumn: Subgroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a14f386-1b69-4656-9b42-f0cd9c249558
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 54194cb2-6a2e-4a34-89cd-b00c0f67cfc7
+		sourceLineageTag: Value
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition unemployment_rate = entity
+		mode: directLake
+		source
+			entityName: unemployment_rate
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

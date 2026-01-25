@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "UN Census Create Delta Tables Bronze Layer (NB)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "dbd6aaf3-994b-8e04-4f12-522445369c6d"
+  }
+}

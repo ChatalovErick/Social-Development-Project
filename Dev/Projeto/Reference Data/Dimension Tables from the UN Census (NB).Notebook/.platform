@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Dimension Tables from the UN Census (NB)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1e7371c0-9f41-930b-44da-624deb272947"
+  }
+}

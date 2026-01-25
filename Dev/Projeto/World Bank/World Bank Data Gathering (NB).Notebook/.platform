@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "World Bank Data Gathering (NB)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3a7cf5eb-0e42-82bd-46cc-2bb94a5af128"
+  }
+}

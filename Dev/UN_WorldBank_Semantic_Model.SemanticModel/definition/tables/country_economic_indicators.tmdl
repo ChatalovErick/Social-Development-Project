@@ -1,0 +1,94 @@
+table country_economic_indicators
+	lineageTag: 743db1c4-2e3b-44f7-803f-3969b508bf70
+	sourceLineageTag: [dbo].[country_economic_indicators]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ca3a442-0b02-4e11-b192-5945d7b05978
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 6ff89684-ce23-4c7e-a9fc-158f56464938
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: string
+		lineageTag: d15a9d45-35b7-4a7f-a60f-495b3b3db6c6
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Inflation_CPI_%
+		dataType: double
+		lineageTag: 873c4b78-0406-4e34-a473-9b60e8137fd1
+		sourceLineageTag: Inflation_CPI_%
+		summarizeBy: sum
+		sourceColumn: Inflation_CPI_%
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GDP_USD
+		dataType: double
+		lineageTag: 5e89fdd0-6368-468b-b67b-24ac60f07ccd
+		sourceLineageTag: GDP_USD
+		summarizeBy: sum
+		sourceColumn: GDP_USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GDP_Growth_Annual_%
+		dataType: double
+		lineageTag: f6ed8403-42f4-4503-be53-3f76ac7820e7
+		sourceLineageTag: GDP_Growth_Annual_%
+		summarizeBy: sum
+		sourceColumn: GDP_Growth_Annual_%
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GDP_PPP
+		dataType: double
+		lineageTag: 29f052a0-2c6c-4581-a527-5f862dfc205f
+		sourceLineageTag: GDP_PPP
+		summarizeBy: sum
+		sourceColumn: GDP_PPP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GDP_Per_Capita
+		dataType: double
+		lineageTag: 2ac670d9-ba0f-4abd-8801-e3bcfc39ae8d
+		sourceLineageTag: GDP_Per_Capita
+		summarizeBy: sum
+		sourceColumn: GDP_Per_Capita
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition country_economic_indicators = entity
+		mode: directLake
+		source
+			entityName: country_economic_indicators
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

@@ -1,0 +1,77 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "World Bank Data Clean Up Silver Layer (DataFlow Gen2)",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "1611d9aa-6aa2-4c53-8d68-5087cedf00e5",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "fertility_rates_global": {
+      "queryId": "629d7b54-2709-4572-8956-25a6aedb9043",
+      "queryName": "fertility_rates_global",
+      "loadEnabled": false
+    },
+    "population_and_migration_global": {
+      "queryId": "0b4409d4-feca-4581-91fd-4eebca656a13",
+      "queryName": "population_and_migration_global",
+      "loadEnabled": false
+    },
+    "electricity_access_and_consumption": {
+      "queryId": "5841bf3c-33ab-453d-a1ca-68ce5fdfb8ab",
+      "queryName": "electricity_access_and_consumption",
+      "loadEnabled": false
+    },
+    "country_economic_indicators": {
+      "queryId": "e0d86543-1e7d-429c-b47e-7bf7f0052b41",
+      "queryName": "country_economic_indicators",
+      "loadEnabled": false
+    },
+    "educational_attainment_global_pct_by_se": {
+      "queryId": "d285ff37-a81d-4edc-a907-7c9475d8141b",
+      "queryName": "educational_attainment_global_pct_by_se",
+      "loadEnabled": false
+    },
+    "fertility_rates_global_DataDestination": {
+      "queryId": "96b07cbc-7bb8-4d06-8dd9-b15031eddc38",
+      "queryName": "fertility_rates_global_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "population_and_migration_global_DataDestination": {
+      "queryId": "eafcfc44-2d55-469c-9499-8b7619a72b77",
+      "queryName": "population_and_migration_global_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "electricity_access_and_consumption_DataDestination": {
+      "queryId": "91f1ac92-5847-4a9e-b690-afd9ebeb234c",
+      "queryName": "electricity_access_and_consumption_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "country_economic_indicators_DataDestination": {
+      "queryId": "5a0a745a-d8f8-45f0-8146-eb583bfbda13",
+      "queryName": "country_economic_indicators_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "educational_attainment_global_pct_by_se_DataDestination": {
+      "queryId": "d002d159-2226-49c5-b0ff-99dd7aa5dd49",
+      "queryName": "educational_attainment_global_pct_by_se_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"859c4984-5e67-4c66-ab4f-8c7ba10be907\",\"DatasourceId\":\"a4fff1ff-8d27-4fff-9474-a34d3bee5364\"}"
+    }
+  ]
+}

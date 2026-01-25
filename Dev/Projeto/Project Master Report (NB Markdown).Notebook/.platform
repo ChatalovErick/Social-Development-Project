@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Project Master Report (NB Markdown)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ca7c1bf9-3fc1-9b22-43b6-1cfbfb0215a2"
+  }
+}

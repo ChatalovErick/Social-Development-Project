@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Dimension Data Create Delta Tables Bronze Layer (NB)",
+    "description": ""
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "274fc45a-b7d4-aa34-4ba9-d904b59f9bd5"
+  }
+}

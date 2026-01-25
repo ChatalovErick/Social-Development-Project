@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DirectLake - Silver_LakeHouse"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb"]
+
+ref table employed_pop_by_status_in_employment_by_age_area
+ref table electricity_access_and_consumption
+ref table educational_attainment_global_pct_by_se
+ref table population_and_migration_global
+ref table country_economic_indicators
+ref table fertility_rates_global
+ref table pop_age_sex_urban_rural
+ref table unemployment_rate
+ref table school_attendance_urban_rural_5to24
+ref table pop_attainment_demographics_15plus
+

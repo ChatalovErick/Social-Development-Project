@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "UN Census Data Clean Up Silver Layer (DataFlow Gen2)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e7343847-a7b9-8be2-4670-d7cf57d159b4"
+  }
+}

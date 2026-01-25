@@ -1,0 +1,84 @@
+table electricity_access_and_consumption
+	lineageTag: 7e1270a6-3bce-4b86-b0ed-c258126e3025
+	sourceLineageTag: [dbo].[electricity_access_and_consumption]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b113aa0-1753-48b5-8eda-85200e2f0447
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_Code
+		dataType: string
+		lineageTag: 562f4592-4376-4b8d-abbc-56284d445203
+		sourceLineageTag: Country_Code
+		summarizeBy: none
+		sourceColumn: Country_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 22eaedbb-3320-446b-a694-f83564d46c05
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Access_Rural_Pct
+		dataType: double
+		lineageTag: 8b2a44be-9843-4a97-8a8a-9d28498f28ae
+		sourceLineageTag: Access_Rural_Pct
+		summarizeBy: sum
+		sourceColumn: Access_Rural_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Access_Urban_Pct
+		dataType: double
+		lineageTag: a0788d3d-1371-49b6-b629-9f608c466fa8
+		sourceLineageTag: Access_Urban_Pct
+		summarizeBy: sum
+		sourceColumn: Access_Urban_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Access_Total_Pct
+		dataType: double
+		lineageTag: 4eada39e-7a60-4faf-8c79-5847223228ee
+		sourceLineageTag: Access_Total_Pct
+		summarizeBy: sum
+		sourceColumn: Access_Total_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KWh_Per_Capita
+		dataType: double
+		lineageTag: 66d61ecf-dcbb-4289-8681-b8dc7a5a618c
+		sourceLineageTag: KWh_Per_Capita
+		summarizeBy: sum
+		sourceColumn: KWh_Per_Capita
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition electricity_access_and_consumption = entity
+		mode: directLake
+		source
+			entityName: electricity_access_and_consumption
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

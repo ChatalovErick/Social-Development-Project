@@ -1,0 +1,127 @@
+table educational_attainment_global_pct_by_se
+	lineageTag: 3e74a2f3-c031-42bd-8257-76726d715a4c
+	sourceLineageTag: [dbo].[educational_attainment_global_pct_by_se]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 68771e9e-7ab1-406b-9794-f505a0889405
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: a236fd39-ae73-4d56-ace6-488abdd062fd
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: string
+		lineageTag: 847d7af1-5c56-438d-b918-ddc20bf1e50f
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bachelor_Female_Pct
+		dataType: double
+		lineageTag: 2e8cfd2c-7533-46d8-858c-f82f702d94f8
+		sourceLineageTag: Bachelor_Female_Pct
+		summarizeBy: sum
+		sourceColumn: Bachelor_Female_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bachelor_Male_Pct
+		dataType: double
+		lineageTag: 5d87f0b4-701a-4da8-9c37-afee23edcc9c
+		sourceLineageTag: Bachelor_Male_Pct
+		summarizeBy: sum
+		sourceColumn: Bachelor_Male_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Doctoral_Female_Pct
+		dataType: double
+		lineageTag: 2081d7a9-b793-4927-9022-606dbad8215c
+		sourceLineageTag: Doctoral_Female_Pct
+		summarizeBy: sum
+		sourceColumn: Doctoral_Female_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Doctoral_Male_Pct
+		dataType: double
+		lineageTag: ac4f6c83-fdfc-46b8-bcbc-d182b767cff4
+		sourceLineageTag: Doctoral_Male_Pct
+		summarizeBy: sum
+		sourceColumn: Doctoral_Male_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Master_Male_Pct
+		dataType: double
+		lineageTag: 74a29458-aa91-41e3-8053-2700d0c164e4
+		sourceLineageTag: Master_Male_Pct
+		summarizeBy: sum
+		sourceColumn: Master_Male_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Master_Total_Pct
+		dataType: double
+		lineageTag: c3b1a6b7-4584-4e34-b326-750bec7246b3
+		sourceLineageTag: Master_Total_Pct
+		summarizeBy: sum
+		sourceColumn: Master_Total_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Short_Cycle_Female_Pct
+		dataType: double
+		lineageTag: ae88a964-7dd2-42e0-bee0-32416038606e
+		sourceLineageTag: Short_Cycle_Female_Pct
+		summarizeBy: sum
+		sourceColumn: Short_Cycle_Female_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Short_Cycle_Male_Pct
+		dataType: double
+		lineageTag: 9a2e361b-a7ee-4d7e-b555-0d8247f10129
+		sourceLineageTag: Short_Cycle_Male_Pct
+		summarizeBy: sum
+		sourceColumn: Short_Cycle_Male_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition educational_attainment_global_pct_by_se = entity
+		mode: directLake
+		source
+			entityName: educational_attainment_global_pct_by_se
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+

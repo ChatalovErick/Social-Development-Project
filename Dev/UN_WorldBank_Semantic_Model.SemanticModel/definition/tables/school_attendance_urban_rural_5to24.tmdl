@@ -1,0 +1,90 @@
+table school_attendance_urban_rural_5to24
+	lineageTag: 9f78e915-2942-4396-8aab-e2bb45ace972
+	sourceLineageTag: [dbo].[school_attendance_urban_rural_5to24]
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 87284b07-b98c-478b-a97f-ee84af666de5
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_or_Area_Code
+		dataType: string
+		lineageTag: 4c0a10b3-541e-4054-a7ae-23f73ea24cea
+		sourceLineageTag: Country_or_Area_Code
+		summarizeBy: none
+		sourceColumn: Country_or_Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 604876ca-1b23-49a1-b954-2c834e8e480b
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 074ecf16-d3f4-412b-bf4e-1ba77e7de25b
+		sourceLineageTag: Area_Code
+		summarizeBy: count
+		sourceColumn: Area_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 948121a2-ea08-4388-8200-604d3602ccdc
+		sourceLineageTag: Sex_Code
+		summarizeBy: count
+		sourceColumn: Sex_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 578c7881-d08d-452f-b57c-fcaa70f09fbb
+		sourceLineageTag: Age
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code_of_School_attendance
+		dataType: int64
+		formatString: 0
+		lineageTag: cfc2d418-f9e0-4b25-8ac9-c6be0ed5f4d8
+		sourceLineageTag: Code_of_School_attendance
+		summarizeBy: sum
+		sourceColumn: Code_of_School_attendance
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: a7e1a830-9b00-4efb-9624-9c343075f97b
+		sourceLineageTag: Value
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition school_attendance_urban_rural_5to24 = entity
+		mode: directLake
+		source
+			entityName: school_attendance_urban_rural_5to24
+			schemaName: dbo
+			expressionSource: 'DirectLake - Silver_LakeHouse'
+
