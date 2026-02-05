@@ -1,0 +1,107 @@
+table Fact_Macro_Indicators
+	lineageTag: ddb2c314-e927-48e3-8ba3-4974059ee455
+	sourceLineageTag: [dbo].[Fact_Macro_Indicators]
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3628078e-0dbf-4d25-8af7-551628646856
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gini_Index
+		dataType: double
+		lineageTag: 93115c3c-308d-4d99-b9be-56d7a47858e4
+		sourceLineageTag: Gini_Index
+		summarizeBy: sum
+		sourceColumn: Gini_Index
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GDP_per_Capita
+		dataType: double
+		lineageTag: 608b7124-affc-430e-a612-f1f9360be62d
+		sourceLineageTag: GDP_per_Capita
+		summarizeBy: sum
+		sourceColumn: GDP_per_Capita
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GDP_Annual_Growth_Pct
+		dataType: double
+		lineageTag: 893b101f-785d-40bc-95a5-5e8aaf98899f
+		sourceLineageTag: GDP_Annual_Growth_Pct
+		summarizeBy: sum
+		sourceColumn: GDP_Annual_Growth_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Inflation_CPI_Pct
+		dataType: double
+		lineageTag: 7f955d33-adda-4bad-b707-5348781a7435
+		sourceLineageTag: Inflation_CPI_Pct
+		summarizeBy: sum
+		sourceColumn: Inflation_CPI_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column HDI
+		dataType: double
+		lineageTag: 5da9c2c8-1f88-440e-b0ea-0198e56e630b
+		sourceLineageTag: HDI
+		summarizeBy: sum
+		sourceColumn: HDI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unemployment_Total
+		dataType: double
+		lineageTag: d6bea229-587e-43fd-b8a1-72219ade6f43
+		sourceLineageTag: Unemployment_Total
+		summarizeBy: sum
+		sourceColumn: Unemployment_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Pop_Total_Count
+		dataType: double
+		lineageTag: 3fb81b11-739d-4bc4-80bd-9c25c26be8b1
+		sourceLineageTag: Pop_Total_Count
+		summarizeBy: sum
+		sourceColumn: Pop_Total_Count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Country_Code_Iso3
+		dataType: string
+		lineageTag: 812aa4a0-d0ed-4db9-9525-884a8f284f19
+		sourceLineageTag: Country_Code_Iso3
+		summarizeBy: none
+		sourceColumn: Country_Code_Iso3
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Macro_Indicators = entity
+		mode: directLake
+		source
+			entityName: Fact_Macro_Indicators
+			schemaName: dbo
+			expressionSource: 'DirectLake - Gold_LakeHouse'
+

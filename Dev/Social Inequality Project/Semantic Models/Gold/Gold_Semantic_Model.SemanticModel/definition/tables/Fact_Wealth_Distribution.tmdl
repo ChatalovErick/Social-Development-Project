@@ -1,0 +1,96 @@
+table Fact_Wealth_Distribution
+	lineageTag: 64f90603-f94d-4d16-9a52-365e1bee1f59
+	sourceLineageTag: [dbo].[Fact_Wealth_Distribution]
+
+	column Country_Code_Iso3
+		dataType: string
+		lineageTag: 3ac73a8f-09bf-4fd8-bddb-365351462eb8
+		sourceLineageTag: Country_Code_Iso3
+		summarizeBy: none
+		sourceColumn: Country_Code_Iso3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: c86ec3b3-a14a-4242-8e38-dc43519cfde5
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: double
+		lineageTag: 16268eb6-8663-43e7-b8b7-d11841e42991
+		sourceLineageTag: ID
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Share_Top_10_pct
+		dataType: double
+		lineageTag: 8849c7e8-df6d-44af-9c43-2724b7eee359
+		sourceLineageTag: Share_Top_10_pct
+		summarizeBy: sum
+		sourceColumn: Share_Top_10_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Share_Top_1_pct
+		dataType: double
+		lineageTag: 27122746-d6f6-4a48-926b-5adb0b076a0f
+		sourceLineageTag: Share_Top_1_pct
+		summarizeBy: sum
+		sourceColumn: Share_Top_1_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Share_Middle_40_pct
+		dataType: double
+		lineageTag: 866d49b9-00bf-4329-b5fe-a195e5bace4d
+		sourceLineageTag: Share_Middle_40_pct
+		summarizeBy: sum
+		sourceColumn: Share_Middle_40_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Share_Bottom_50_pct
+		dataType: double
+		lineageTag: ccf8a9f6-0cdd-4b2c-aefe-34a91520ba94
+		sourceLineageTag: Share_Bottom_50_pct
+		summarizeBy: sum
+		sourceColumn: Share_Bottom_50_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Monthly_Employee_Earnings
+		dataType: double
+		lineageTag: 15bf5527-b7d4-4b89-afc6-12b1dd7b549b
+		sourceLineageTag: Monthly_Employee_Earnings
+		summarizeBy: sum
+		sourceColumn: Monthly_Employee_Earnings
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fact_Wealth_Distribution = entity
+		mode: directLake
+		source
+			entityName: Fact_Wealth_Distribution
+			schemaName: dbo
+			expressionSource: 'DirectLake - Gold_LakeHouse'
+

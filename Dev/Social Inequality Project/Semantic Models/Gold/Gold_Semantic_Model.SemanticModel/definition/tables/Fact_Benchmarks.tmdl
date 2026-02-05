@@ -1,0 +1,169 @@
+table Fact_Benchmarks
+	lineageTag: d17236f8-5fea-4987-8dff-ab7818318099
+	sourceLineageTag: [dbo].[Fact_Benchmarks]
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: f82d785d-7838-45d0-ba15-9875696f269e
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Female_Account_Ownership
+		dataType: double
+		lineageTag: b5f94185-a4cc-43d5-b89d-a8d862a9aa84
+		sourceLineageTag: Female_Account_Ownership
+		summarizeBy: sum
+		sourceColumn: Female_Account_Ownership
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Internet_Access
+		dataType: double
+		lineageTag: 57133d49-02df-4259-ba12-572c4ec4a82e
+		sourceLineageTag: Internet_Access
+		summarizeBy: sum
+		sourceColumn: Internet_Access
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Literacy_Rate
+		dataType: double
+		lineageTag: 7a74b102-da9b-4e9a-98a0-6048c22dfbf6
+		sourceLineageTag: Literacy_Rate
+		summarizeBy: sum
+		sourceColumn: Literacy_Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column School_Attendance
+		dataType: double
+		lineageTag: d7fc65f2-90b1-4674-a991-ce7de8d6f32f
+		sourceLineageTag: School_Attendance
+		summarizeBy: sum
+		sourceColumn: School_Attendance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Child_Mortality_Rate
+		dataType: double
+		lineageTag: 374aff36-ebf8-4ba8-9d3c-a029dad48e81
+		sourceLineageTag: Child_Mortality_Rate
+		summarizeBy: sum
+		sourceColumn: Child_Mortality_Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Life_Expectancy
+		dataType: double
+		lineageTag: e8f1121f-88ce-4620-8489-8b870571a72a
+		sourceLineageTag: Life_Expectancy
+		summarizeBy: sum
+		sourceColumn: Life_Expectancy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Description
+		dataType: string
+		lineageTag: 10d69285-b90e-4e85-bbbb-fdb3e783cba1
+		sourceLineageTag: Description
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Entity_Type
+		dataType: string
+		lineageTag: 4f6dad70-2e0f-460a-b1c6-594bf9b32c21
+		sourceLineageTag: Entity_Type
+		summarizeBy: none
+		sourceColumn: Entity_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column GDP_per_Capita
+		dataType: double
+		lineageTag: 766c9b00-c81c-4e04-afd4-bed1bb8d1edd
+		sourceLineageTag: GDP_per_Capita
+		summarizeBy: sum
+		sourceColumn: GDP_per_Capita
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GDP_Annual_Growth_Pct
+		dataType: double
+		lineageTag: 665a5aff-0e77-4471-bc95-c310f77d9b64
+		sourceLineageTag: GDP_Annual_Growth_Pct
+		summarizeBy: sum
+		sourceColumn: GDP_Annual_Growth_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Inflation_CPI_Pct
+		dataType: double
+		lineageTag: a9ec915e-51ee-4fa4-b0ff-d4c0a5cd2bac
+		sourceLineageTag: Inflation_CPI_Pct
+		summarizeBy: sum
+		sourceColumn: Inflation_CPI_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unemployment_Rate
+		dataType: double
+		lineageTag: 9c57d030-1d8b-4b19-b847-ca6f208ea1c6
+		sourceLineageTag: Unemployment_Rate
+		summarizeBy: sum
+		sourceColumn: Unemployment_Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Country_Code_Iso3
+		dataType: string
+		lineageTag: 9682d38e-bddb-4870-8bb5-05326cbcb681
+		sourceLineageTag: Country_Code_Iso3
+		summarizeBy: none
+		sourceColumn: Country_Code_Iso3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pop_Total_Count
+		dataType: double
+		lineageTag: 8cdbe7d8-eb99-4fe1-a2c5-cf85d4982fec
+		sourceLineageTag: Pop_Total_Count
+		summarizeBy: sum
+		sourceColumn: Pop_Total_Count
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fact_Benchmarks = entity
+		mode: directLake
+		source
+			entityName: Fact_Benchmarks
+			schemaName: dbo
+			expressionSource: 'DirectLake - Gold_LakeHouse'
+

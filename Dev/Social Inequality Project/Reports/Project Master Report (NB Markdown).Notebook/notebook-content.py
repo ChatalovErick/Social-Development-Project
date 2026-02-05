@@ -106,6 +106,39 @@
 #         - **Global Growth Period:** Years of sustained economic expansion.
 #         - **COVID-19:** The specific period of global pandemic impact (2020–2022).
 #         - **Post-COVID Recovery:** Data from 2023 to 2024.
+# 
+# ### 3.3. Gold Layer: Business Logic Application
+# his report outlines the transformation logic applied to move data from the Silver (cleansed/standardized) layer to the Gold (business/analytics) layer.
+# 
+# #### 3.3.1. Architectural Overview: The Galaxy Schema
+# The Gold layer was structured into Fact and Dimension tables to optimize for reporting tools like Power BI.
+# 
+# ##### 3.3.1.1 Dimensions (The "Who/Where/When")
+# - **Dim_Geography:** Standardized list of countries including region names.
+# - **Dim_Date:** Time dimension for temporal analysis.
+# 
+# ##### 3.3.1.2. Facts (The "Quantitative Measures")
+# - **Fact_Social_Barriers:** Country-level social metrics (Wide format).
+# - **Fact_Benchmarks:** Regional and global aggregates (Long format) used for comparative analysis.
+# - **Fact_Macro_Indicators:** Economic and development data (GDP, Gini, HDI, Unemployment).
+# - **Fact_Wealth_Distribution:** Income share percentiles and average employee earnings.
+# 
+# #### 3.3.2. Key Transformations & Business Logic
+# ##### 3.3.2.1. Data Enrichment & Geospatial Intelligence
+# To enable advanced mapping in dashboards, we performed a massive lookup operation:
+# 
+# - **Coordinate Mapping:** Applied a dictionary of 249 countries and 6 regions to inject latitude and longitude for both specific countries and their parent regions.
+# - **Demographic Context:** Enriched Fact_Macro_Indicators and Fact_Benchmarks by joining with population data from the Bronze layer to provide scale to the social metrics.
+# 
+# ##### 3.3.2.2. Normalization & Integration
+# - **Entity Mapping:** A manual mapping dictionary was created to resolve "Aggregate Codes" (e.g., WLD, HIC) into readable descriptions (e.g., World, High Income).
+# - **The "Benchmark" Merge:** We integrated macro-economic indicators into the regional benchmarks table. This involved a Left Anti Join to ensure we only included regional aggregates (excluding individual countries) to prevent double-counting in analytics.
+# 
+# ##### 3.3.2.3. Data Quality & Cleaning
+# - **Precision Standardizing:** Applied F.round(col, 2) across all metrics (and 3 decimals for HDI) to ensure visual consistency.
+# - **Temporal Filtering:** To maintain relevance and data density, we filtered Fact_Wealth_Distribution and Fact_Benchmarks to only include data from 2010 onwards.
+# - **Empty Record Pruning:** Implemented a cleanup script to drop rows where all metric columns were NULL, ensuring the Gold layer only contains actionable data.
+# - **Standardization:** Renamed varying country code columns to a consistent country_code_iso3 across all fact tables.
 
 
 # MARKDOWN ********************

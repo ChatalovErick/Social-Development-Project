@@ -1,0 +1,90 @@
+{
+  "config": "{\"version\":\"5.69\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY25SU12\",\"type\":2,\"version\":{\"visual\":\"2.5.0\",\"report\":\"3.1.0\",\"page\":\"2.3.0\"}}},\"activeSectionIndex\":1,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":0,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY25SU12",
+            "path": "BaseThemes/CY25SU12.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "6bff2948a25c2512fdb6",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"7102adafa13eefdfd39b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":1256.0065199674002,\"height\":249.3235533822331,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"lineStackedColumnComboChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Dim_Date.Year\",\"active\":true}],\"Y\":[{\"queryRef\":\"Measures Table.Avg Top 1% Share\"}],\"Y2\":[{\"queryRef\":\"Measures Table.Concentration Trend\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim_Date\",\"Type\":0},{\"Name\":\"m1\",\"Entity\":\"Measures Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim_Date.Year\",\"NativeReferenceName\":\"Year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m1\"}},\"Property\":\"Avg Top 1% Share\"},\"Name\":\"Measures Table.Avg Top 1% Share\",\"NativeReferenceName\":\"Avg Top 1% Share\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m1\"}},\"Property\":\"Concentration Trend\"},\"Name\":\"Measures Table.Concentration Trend\",\"NativeReferenceName\":\"Concentration Trend\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m1\"}},\"Property\":\"Avg Top 1% Share\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 249.32,
+          "width": 1256.01,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"ede7dcf7d0bf692498a6\",\"layouts\":[{\"id\":0,\"position\":{\"x\":18.77750611246944,\"y\":273.3170334148329,\"z\":2000,\"width\":833.5126324368377,\"height\":230.54604726976365,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Dim_Date.Year\",\"active\":true}],\"Series\":[{\"queryRef\":\"Dim_Date.Economic_Context\"}],\"Y\":[{\"queryRef\":\"Measures Table.Concentration Trend\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim_Date\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measures Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Dim_Date.Year\",\"NativeReferenceName\":\"Year\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Economic_Context\"},\"Name\":\"Dim_Date.Economic_Context\",\"NativeReferenceName\":\"Economic_Context\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Concentration Trend\"},\"Name\":\"Measures Table.Concentration Trend\",\"NativeReferenceName\":\"Concentration Trend\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Concentration Trend\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 230.55,
+          "width": 833.51,
+          "x": 18.78,
+          "y": 273.32,
+          "z": 2000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 2",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "79456b96d44c84fc693c",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"6f527bba1521dbf37e11\",\"layouts\":[{\"id\":0,\"position\":{\"x\":747.6207513416816,\"y\":25.18783542039356,\"z\":2,\"width\":532.3792486583185,\"height\":350.33989266547405,\"tabOrder\":2}}],\"singleVisual\":{\"visualType\":\"lineClusteredColumnComboChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Dim_Geography.region_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"Measures Table.Pre-COVID Unemployment\"}],\"Y2\":[{\"queryRef\":\"Measures Table.COVID Peak Unemployment\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Dim_Geography\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Measures Table\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"region_name\"},\"Name\":\"Dim_Geography.region_name\",\"NativeReferenceName\":\"region_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Pre-COVID Unemployment\"},\"Name\":\"Measures Table.Pre-COVID Unemployment\",\"NativeReferenceName\":\"Pre-COVID Unemployment\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"COVID Peak Unemployment\"},\"Name\":\"Measures Table.COVID Peak Unemployment\",\"NativeReferenceName\":\"COVID Peak Unemployment\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Pre-COVID Unemployment\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 350.34,
+          "width": 532.38,
+          "x": 747.62,
+          "y": 25.19,
+          "z": 2.00
+        },
+        {
+          "config": "{\"name\":\"d8e104066ff4aed0e46e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":25.18783542039356,\"z\":0,\"width\":738.4615384615385,\"height\":350.33989266547405,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"scatterChart\",\"projections\":{\"X\":[{\"queryRef\":\"Measures Table.Avg Child Mortality (Pre-COVID)\",\"active\":true}],\"Y\":[{\"queryRef\":\"Measures Table.Unemployment Shock (COVID)\"}],\"Category\":[{\"queryRef\":\"Dim_Geography.region_name\",\"active\":true}],\"Series\":[{\"queryRef\":\"Dim_Geography.region_name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measures Table\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dim_Geography\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Avg Child Mortality (Pre-COVID)\"},\"Name\":\"Measures Table.Avg Child Mortality (Pre-COVID)\",\"NativeReferenceName\":\"Avg Child Mortality (Pre-COVID)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Unemployment Shock (COVID)\"},\"Name\":\"Measures Table.Unemployment Shock (COVID)\",\"NativeReferenceName\":\"Unemployment Shock (COVID)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"region_name\"},\"Name\":\"Dim_Geography.region_name\",\"NativeReferenceName\":\"region_name\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"categoryAxis\":[{\"properties\":{\"start\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"9D\"}}}}}],\"categoryLabels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"16D\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 350.34,
+          "width": 738.46,
+          "x": 0.00,
+          "y": 25.19,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"e27f7cbf62af757c63ba\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":384.68694096601075,\"z\":1,\"width\":738.4615384615385,\"height\":208.37209302325581,\"tabOrder\":1}}],\"singleVisual\":{\"visualType\":\"scatterChart\",\"projections\":{\"X\":[{\"queryRef\":\"Measures Table.Avg Life Expectancy (Pre-COVID)\",\"active\":true}],\"Y\":[{\"queryRef\":\"Measures Table.Unemployment Shock (COVID)\"}],\"Category\":[{\"queryRef\":\"Dim_Geography.region_name\",\"active\":true}],\"Series\":[{\"queryRef\":\"Dim_Geography.region_name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Measures Table\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dim_Geography\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Avg Life Expectancy (Pre-COVID)\"},\"Name\":\"Measures Table.Avg Life Expectancy (Pre-COVID)\",\"NativeReferenceName\":\"Avg Life Expectancy (Pre-COVID)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Unemployment Shock (COVID)\"},\"Name\":\"Measures Table.Unemployment Shock (COVID)\",\"NativeReferenceName\":\"Unemployment Shock (COVID)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"region_name\"},\"Name\":\"Dim_Geography.region_name\",\"NativeReferenceName\":\"region_name\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 208.37,
+          "width": 738.46,
+          "x": 0.00,
+          "y": 384.69,
+          "z": 1.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

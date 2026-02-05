@@ -1,0 +1,174 @@
+table Dim_Geography
+	lineageTag: 361214d4-03bc-463d-b60f-82d176f2410f
+	sourceLineageTag: [dbo].[Dim_Geography]
+
+	column region_name
+		dataType: string
+		lineageTag: 6d813b02-f4f1-4bc5-90e1-1d36fd40caf5
+		sourceLineageTag: region_name
+		summarizeBy: none
+		sourceColumn: region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column sub-region_name
+		dataType: string
+		lineageTag: aede218d-22e4-42d4-ad67-18f5b342d910
+		sourceLineageTag: sub-region_name
+		summarizeBy: none
+		sourceColumn: sub-region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column intermediate_region_name
+		dataType: string
+		lineageTag: 044fd9a8-c8ed-40f6-84f4-dcc369cc691c
+		sourceLineageTag: intermediate_region_name
+		summarizeBy: none
+		sourceColumn: intermediate_region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_or_area
+		dataType: string
+		lineageTag: dd138a57-1344-4366-9d7f-77b9e1da92ee
+		sourceLineageTag: country_or_area
+		summarizeBy: none
+		sourceColumn: country_or_area
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_Code_Numeric
+		dataType: int64
+		formatString: 0
+		lineageTag: 86541f1c-7a27-4232-83f9-6b3c2b6ae0ad
+		sourceLineageTag: Country_Code_Numeric
+		summarizeBy: sum
+		sourceColumn: Country_Code_Numeric
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_Code_Iso2
+		dataType: string
+		lineageTag: d54bca79-04de-4e97-8aec-003d2d5e1844
+		sourceLineageTag: Country_Code_Iso2
+		summarizeBy: none
+		sourceColumn: Country_Code_Iso2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country_Code_Iso3
+		dataType: string
+		lineageTag: 74cbd50f-961b-4368-a062-b954b690802b
+		sourceLineageTag: Country_Code_Iso3
+		summarizeBy: none
+		sourceColumn: Country_Code_Iso3
+
+		annotation SummarizationSetBy = Automatic
+
+	column reg_lat
+		dataType: double
+		displayFolder: Latitude
+		lineageTag: 5e5f0e7c-c453-432c-a13c-97cd8d0832f0
+		sourceLineageTag: reg_lat
+		summarizeBy: sum
+		sourceColumn: reg_lat
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reg_long
+		dataType: double
+		displayFolder: Longitude
+		lineageTag: 2e9ac725-3de1-432c-995b-9b0995d3ad76
+		sourceLineageTag: reg_long
+		summarizeBy: sum
+		sourceColumn: reg_long
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column country_lat
+		dataType: double
+		displayFolder: Latitude
+		lineageTag: 6afab18a-90bf-40b1-a9a6-ee9e83e26e4b
+		sourceLineageTag: country_lat
+		summarizeBy: sum
+		sourceColumn: country_lat
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column country_long
+		dataType: double
+		displayFolder: Longitude
+		lineageTag: 4966b4c1-00a9-4ba1-ac6c-04a73da90110
+		sourceLineageTag: country_long
+		summarizeBy: sum
+		sourceColumn: country_long
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column intermediate_lat
+		dataType: double
+		displayFolder: Latitude
+		lineageTag: 43ba9b2d-f702-47ef-af66-db22e5b6bf74
+		sourceLineageTag: intermediate_lat
+		summarizeBy: sum
+		sourceColumn: intermediate_lat
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column intermediate_long
+		dataType: double
+		displayFolder: Longitude
+		lineageTag: 21c21832-7c87-4ab9-abae-1ff1851a6bf6
+		sourceLineageTag: intermediate_long
+		summarizeBy: sum
+		sourceColumn: intermediate_long
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	hierarchy 'region_name Hierarchy'
+		lineageTag: 1b224e8f-9783-429b-a950-f0964e2b8b31
+
+		level region_name
+			lineageTag: d076a0cf-73e6-4f3e-b8c6-0c7efef77fcc
+			column: region_name
+
+		level intermediate_region_name
+			lineageTag: 46555dd8-6632-4b25-8354-71ec0e0806f4
+			column: intermediate_region_name
+
+		level country_or_area
+			lineageTag: a4dc8e1a-59d7-4469-a70d-6b59a9cf966c
+			column: country_or_area
+
+	partition Dim_Geography = entity
+		mode: directLake
+		source
+			entityName: Dim_Geography
+			schemaName: dbo
+			expressionSource: 'DirectLake - Gold_LakeHouse'
+

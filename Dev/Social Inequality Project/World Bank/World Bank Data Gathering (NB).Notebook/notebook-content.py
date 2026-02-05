@@ -344,13 +344,15 @@ import wbgapi as wb
 import pandas as pd
 from pyspark.sql import functions as F
 
+spark.sql("DROP TABLE IF EXISTS bronze_lakehouse.world_bank.Fact_Social_Barriers")
+
 # 1. Seleção Específica de Indicadores para Barreiras Sociais
 indicadores_social = {
     'SE.PRM.TENR': 'School_Attendance',      # Adjusted to Primary Adjusted Net Attendance/Enrollment
     'SE.ADT.LITR.ZS': 'Literacy_Rate',
     'IT.NET.USER.ZS': 'Internet_Access',
     'FX.OWN.TOTL.FE.ZS': 'Female_Account_Ownership',
-    'SH.DTH.MORT': 'Child_Mortality_Rate',  
+    'SH.DYN.MORT': 'Child_Mortality_Rate',  
     'SP.DYN.LE00.IN': 'Life_Expectancy'
 }
 

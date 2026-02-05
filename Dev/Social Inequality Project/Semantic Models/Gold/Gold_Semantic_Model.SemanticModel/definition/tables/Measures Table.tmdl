@@ -1,0 +1,897 @@
+table 'Measures Table'
+	lineageTag: 775e0916-df23-449c-b5a7-c1498aeb0108
+
+	measure Latitude_Final =
+			
+			SWITCH( TRUE(),
+			    ISINSCOPE('dim_geography'[country_or_area]), SELECTEDVALUE('dim_geography'[country_lat]),
+			    ISINSCOPE('dim_geography'[intermediate_region_name]), SELECTEDVALUE('dim_geography'[intermediate_lat]),
+			    SELECTEDVALUE('dim_geography'[reg_lat])
+			)
+		displayFolder: Visuals 2.1
+		lineageTag: f82f779b-f200-4800-a860-c18d168d80ef
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Longitude_Final =
+			
+			SWITCH( TRUE(),
+			    ISINSCOPE('dim_geography'[country_or_area]), SELECTEDVALUE('dim_geography'[country_long]),
+			    ISINSCOPE('dim_geography'[intermediate_region_name]), SELECTEDVALUE('dim_geography'[intermediate_long]),
+			    SELECTEDVALUE('dim_geography'[reg_long])
+			)
+		displayFolder: Visuals 2.1
+		lineageTag: 6638f12d-88a5-4c33-9b2b-3ffc428bc3af
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Gini_Value_Last_Year = ```
+			
+			VAR LastYear = CALCULATE(
+			    MAX('Fact_Macro_Indicators'[Year]),
+			    NOT ISBLANK('Fact_Macro_Indicators'[Gini_Index])
+			)
+			RETURN
+			ROUND(
+			    CALCULATE(
+			        AVERAGE('Fact_Macro_Indicators'[Gini_Index]),
+			        'Fact_Macro_Indicators'[Year] = LastYear
+			    ), 
+			    2
+			)
+			```
+		displayFolder: Visuals 2.1
+		lineageTag: ad6d97b0-1474-40c3-bd9f-6aa2bc6fe46a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure HDI_Value_Last_Available = ```
+			
+			VAR LastYearPerCountry = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[Year]),
+			        NOT ISBLANK('Fact_Macro_Indicators'[HDI])
+			    )
+			RETURN
+			    ROUND(
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[HDI]),
+			            'Fact_Macro_Indicators'[Year] = LastYearPerCountry
+			        ), 
+			        3
+			    )
+			```
+		displayFolder: Visuals 2.1
+		lineageTag: 6f5e2c7a-28da-4e6b-a8a4-df9dfd54c0bb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure GDP_Per_Capita_Last_Year = ```
+			
+			VAR LastYear = CALCULATE(MAX('Fact_Macro_Indicators'[Year]), NOT ISBLANK('Fact_Macro_Indicators'[GDP_Per_Capita]))
+			RETURN
+			ROUND(
+			    CALCULATE(
+			        AVERAGE('Fact_Macro_Indicators'[GDP_per_Capita]),
+			        'Fact_Macro_Indicators'[Year] = LastYear
+			    ), 
+			    2
+			)
+			```
+		displayFolder: Visuals 2.1
+		lineageTag: b3f91096-7c7d-45a5-b417-86d5c4211e5d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Gini_Backfilled = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year]) -- Usamos MAX para garantir que há sempre um ano, mesmo sem filtro
+			
+			-- 1. Criamos uma tabela virtual que percorre cada país individualmente
+			VAR TabelaUltimosValores = 
+			    ADDCOLUMNS(
+			        VALUES('Dim_Geography'[Country_Code_Iso3]), 
+			        "@UltimoGini",
+			        VAR PaisAtual = [Country_Code_Iso3]
+			        VAR UltimoAnoComDados = 
+			            CALCULATE(
+			                MAX('Fact_Macro_Indicators'[Year]),
+			                FILTER(
+			                    ALL('Fact_Macro_Indicators'),
+			                    'Fact_Macro_Indicators'[Country_Code_Iso3] = PaisAtual &&
+			                    'Fact_Macro_Indicators'[Year] <= AnoContexto && 
+			                    NOT ISBLANK('Fact_Macro_Indicators'[Gini_Index])
+			                )
+			            )
+			        RETURN
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[Gini_Index]),
+			            'Fact_Macro_Indicators'[Year] = UltimoAnoComDados,
+			            'Fact_Macro_Indicators'[Country_Code_Iso3] = PaisAtual,
+			            REMOVEFILTERS('Dim_Date')
+			        )
+			    )
+			
+			-- 2. Fazemos a média dos Ginis recuperados
+			RETURN
+			IF(
+			    NOT ISBLANK(AnoContexto),
+			    AVERAGEX(TabelaUltimosValores, [@UltimoGini]),
+			    BLANK()
+			)
+			```
+		displayFolder: Visuals 2.1
+		lineageTag: 17c67a38-17f3-4273-bf94-d4df56d5ae75
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure HDI_Backfilled = ```
+			
+			VAR AnoContexto = SELECTEDVALUE('Dim_Date'[Year])
+			
+			-- 1. Criamos uma tabela virtual com o último ano de cada país visível
+			VAR TabelaUltimosValores = 
+			    ADDCOLUMNS(
+			        VALUES('Dim_Geography'[Country_Code_Iso3]), -- Itera sobre os países no contexto atual
+			        "@UltimoValor",
+			        VAR PaisAtual = [Country_Code_Iso3]
+			        VAR UltimoAnoComDados = 
+			            CALCULATE(
+			                MAX('Fact_Macro_Indicators'[Year]),
+			                FILTER(
+			                    ALL('Fact_Macro_Indicators'),
+			                    'Fact_Macro_Indicators'[Country_Code_Iso3] = PaisAtual &&
+			                    'Fact_Macro_Indicators'[Year] <= AnoContexto && 
+			                    NOT ISBLANK('Fact_Macro_Indicators'[HDI])
+			                )
+			            )
+			        RETURN
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[HDI]),
+			            'Fact_Macro_Indicators'[Year] = UltimoAnoComDados,
+			            'Fact_Macro_Indicators'[Country_Code_Iso3] = PaisAtual,
+			            REMOVEFILTERS('Dim_Date')
+			        )
+			    )
+			
+			-- 2. Fazemos a média desses valores (funciona para 1 país ou para o Continente todo)
+			RETURN
+			AVERAGEX(TabelaUltimosValores, [@UltimoValor])
+			```
+		displayFolder: Visuals 2.1
+		lineageTag: 69a07afc-6297-4aed-8338-a1782740347d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Latest Population' = ```
+			
+			VAR LatestYear = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[Year]), 
+			        ALLEXCEPT('Dim_Geography', 'Dim_Geography'[country_or_area], 'Dim_Geography'[intermediate_region_name], 'Dim_Geography'[region_name]),
+			        NOT(ISBLANK('Fact_Macro_Indicators'[Pop_Total_Count]))
+			    )
+			RETURN
+			    CALCULATE(
+			        SUM('Fact_Macro_Indicators'[Pop_Total_Count]), 
+			        'Fact_Macro_Indicators'[Year] = LatestYear
+			    )
+			```
+		displayFolder: Fact_Macro_Indicators
+		lineageTag: 4080c8c4-74dd-4458-ae93-bd3bdd4fdc59
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Population_Last_Available = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			
+			RETURN
+			SUMX(
+			    VALUES('Dim_Geography'[country_or_area]),
+			    VAR UltimoAnoComDados = 
+			        CALCULATE(
+			            MAX('Fact_Macro_Indicators'[Year]),
+			            'Fact_Macro_Indicators'[Year] <= AnoContexto,
+			            NOT ISBLANK('Fact_Macro_Indicators'[Pop_Total_Count]),
+			            ALL('Dim_Date')
+			        )
+			    RETURN
+			    CALCULATE(
+			        SUM('Fact_Macro_Indicators'[Pop_Total_Count]),
+			        'Fact_Macro_Indicators'[Year] = UltimoAnoComDados,
+			        ALL('Dim_Date')
+			    )
+			)
+			```
+		displayFolder: Visuals 2.1
+		lineageTag: cc55d411-060d-4452-82cc-7bbaa2926132
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Max Gini Index' = ```
+			
+			VAR LastYearWithData = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[Year]),
+			        'Fact_Macro_Indicators'[Gini_Index] > 0,
+			        ALLSELECTED('Fact_Macro_Indicators')
+			    )
+			VAR MaxValue = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[Gini_Index]), 
+			        'Fact_Macro_Indicators'[Gini_Index] > 0,
+			        'Fact_Macro_Indicators'[Year] = LastYearWithData
+			    )
+			VAR MaxCountryRow = 
+			    TOPN(
+			        1, 
+			        ALLSELECTED('Dim_Geography'), 
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[Gini_Index]), 
+			            'Fact_Macro_Indicators'[Gini_Index] > 0,
+			            'Fact_Macro_Indicators'[Year] = LastYearWithData
+			        ), DESC,
+			        CALCULATE(SUM('Fact_Macro_Indicators'[Pop_Total_Count]), 'Fact_Macro_Indicators'[Year] = LastYearWithData), DESC
+			    )
+			VAR FullName = MAXX(MaxCountryRow, 'Dim_Geography'[country_or_area])
+			VAR ShortName = 
+			    SWITCH(
+			        TRUE(),
+			        FullName = "Democratic People's Republic of Korea", "North Korea",
+			        FullName = "Democratic Republic of the Congo", "DR Congo",
+			        FullName = "Central African Republic", "C. African Rep.",
+			        FullName = "United Arab Emirates", "UAE",
+			        FullName = "United States of America", "USA",
+			        FullName = "United Kingdom of Great Britain and Northern Ireland", "UK",
+			        LEN(FullName) > 15, LEFT(FullName, 13) & "..",
+			        FullName
+			    )
+			RETURN
+			IF(NOT ISBLANK(MaxValue), UPPER(ShortName) & UNICHAR(10) & FORMAT(MaxValue, "0.00"), "Sem dados")
+			```
+		displayFolder: Cards Page 2.1
+		lineageTag: 1e72b9aa-4868-4b51-9bf7-e2f63b81d18a
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure 'Min Gini Index' = ```
+			
+			VAR LastYearWithData = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[Year]),
+			        'Fact_Macro_Indicators'[Gini_Index] > 0,
+			        ALLSELECTED('Fact_Macro_Indicators')
+			    )
+			VAR MinValue = 
+			    CALCULATE(
+			        MIN('Fact_Macro_Indicators'[Gini_Index]), 
+			        'Fact_Macro_Indicators'[Gini_Index] > 0,
+			        'Fact_Macro_Indicators'[Year] = LastYearWithData
+			    )
+			VAR MinCountryRow = 
+			    TOPN(
+			        1, 
+			        ALLSELECTED('Dim_Geography'), 
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[Gini_Index]), 
+			            'Fact_Macro_Indicators'[Gini_Index] > 0,
+			            'Fact_Macro_Indicators'[Year] = LastYearWithData
+			        ), ASC,
+			        CALCULATE(SUM('Fact_Macro_Indicators'[Pop_Total_Count]), 'Fact_Macro_Indicators'[Year] = LastYearWithData), DESC
+			    )
+			VAR FullName = MAXX(MinCountryRow, 'Dim_Geography'[country_or_area])
+			VAR ShortName = 
+			    SWITCH(
+			        TRUE(),
+			        FullName = "Democratic People's Republic of Korea", "North Korea",
+			        FullName = "Democratic Republic of the Congo", "DR Congo",
+			        FullName = "Central African Republic", "C. African Rep.",
+			        FullName = "United Arab Emirates", "UAE",
+			        FullName = "United States of America", "USA",
+			        FullName = "United Kingdom of Great Britain and Northern Ireland", "UK",
+			        LEN(FullName) > 15, LEFT(FullName, 13) & "..",
+			        FullName
+			    )
+			RETURN
+			IF(NOT ISBLANK(MinValue), UPPER(ShortName) & UNICHAR(10) & FORMAT(MinValue, "0.00"), "Sem dados")
+			```
+		displayFolder: Cards Page 2.1
+		lineageTag: ce92c636-a492-4186-a2d2-bf8dc6a0e113
+
+	measure 'Max HDI' = ```
+			
+			VAR LastYearWithData = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[Year]),
+			        'Fact_Macro_Indicators'[HDI] > 0,
+			        ALLSELECTED('Fact_Macro_Indicators')
+			    )
+			VAR MaxValue = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[HDI]), 
+			        'Fact_Macro_Indicators'[HDI] > 0,
+			        'Fact_Macro_Indicators'[Year] = LastYearWithData
+			    )
+			VAR MaxCountryRow = 
+			    TOPN(
+			        1, 
+			        ALLSELECTED('Dim_Geography'), 
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[HDI]), 
+			            'Fact_Macro_Indicators'[HDI] > 0,
+			            'Fact_Macro_Indicators'[Year] = LastYearWithData
+			        ), DESC,
+			        CALCULATE(SUM('Fact_Macro_Indicators'[Pop_Total_Count]), 'Fact_Macro_Indicators'[Year] = LastYearWithData), DESC
+			    )
+			VAR FullName = MAXX(MaxCountryRow, 'Dim_Geography'[country_or_area])
+			VAR ShortName = 
+			    SWITCH(
+			        TRUE(),
+			        FullName = "Democratic People's Republic of Korea", "North Korea",
+			        FullName = "Democratic Republic of the Congo", "DR Congo",
+			        FullName = "Central African Republic", "C. African Rep.",
+			        FullName = "United Arab Emirates", "UAE",
+			        FullName = "United States of America", "USA",
+			        FullName = "United Kingdom of Great Britain and Northern Ireland", "UK",
+			        LEN(FullName) > 15, LEFT(FullName, 13) & "..",
+			        FullName
+			    )
+			RETURN
+			IF(NOT ISBLANK(MaxValue), UPPER(ShortName) & UNICHAR(10) & FORMAT(MaxValue, "0.000"), "Sem dados")
+			```
+		displayFolder: Cards Page 2.1
+		lineageTag: 1e3d798c-e807-4f04-b8bc-944bf24459af
+
+	measure 'Min HDI' = ```
+			
+			VAR LastYearWithData = 
+			    CALCULATE(
+			        MAX('Fact_Macro_Indicators'[Year]),
+			        'Fact_Macro_Indicators'[HDI] > 0,
+			        ALLSELECTED('Fact_Macro_Indicators')
+			    )
+			VAR MinValue = 
+			    CALCULATE(
+			        MIN('Fact_Macro_Indicators'[HDI]), 
+			        'Fact_Macro_Indicators'[HDI] > 0,
+			        'Fact_Macro_Indicators'[Year] = LastYearWithData
+			    )
+			VAR MinCountryRow = 
+			    TOPN(
+			        1, 
+			        ALLSELECTED('Dim_Geography'), 
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[HDI]), 
+			            'Fact_Macro_Indicators'[HDI] > 0,
+			            'Fact_Macro_Indicators'[Year] = LastYearWithData
+			        ), ASC,
+			        CALCULATE(SUM('Fact_Macro_Indicators'[Pop_Total_Count]), 'Fact_Macro_Indicators'[Year] = LastYearWithData), DESC
+			    )
+			VAR FullName = MAXX(MinCountryRow, 'Dim_Geography'[country_or_area])
+			VAR ShortName = 
+			    SWITCH(
+			        TRUE(),
+			        FullName = "Democratic People's Republic of Korea", "North Korea",
+			        FullName = "Democratic Republic of the Congo", "DR Congo",
+			        FullName = "Central African Republic", "C. African Rep.",
+			        FullName = "United Arab Emirates", "UAE",
+			        FullName = "United States of America", "USA",
+			        FullName = "United Kingdom of Great Britain and Northern Ireland", "UK",
+			        LEN(FullName) > 15, LEFT(FullName, 13) & "..",
+			        FullName
+			    )
+			RETURN
+			IF(NOT ISBLANK(MinValue), UPPER(ShortName) & UNICHAR(10) & FORMAT(MinValue, "0.000"), "Sem dados")
+			```
+		displayFolder: Cards Page 2.1
+		lineageTag: 0e699c67-c689-45a6-85d1-e3702c0c8de4
+
+	measure 'Latest Population Formatted' =
+			
+			VAR RawPop = [Latest Population]
+			RETURN
+			    // Dividing by 1,000 to get 1,000,000 down to 1,000
+			    FORMAT(RawPop / 1000, "#,##0 M")
+		displayFolder: Fact_Macro_Indicators
+		lineageTag: 9d649f33-408b-4439-8ffe-606ac0498cac
+
+	measure 'Wealth Share Top 10%' = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			
+			VAR MediaPorPais = 
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_or_area])),
+			        VAR UltimoAnoComDados = 
+			            CALCULATE(
+			                MAX('Fact_Wealth_Distribution'[Year]), 
+			                'Fact_Wealth_Distribution'[Year] <= AnoContexto,
+			                NOT ISBLANK('Fact_Wealth_Distribution'[Share_Top_10_pct]),
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            AVERAGE('Fact_Wealth_Distribution'[Share_Top_10_pct]), 
+			            'Fact_Wealth_Distribution'[Year] = UltimoAnoComDados,
+			            ALL('Dim_Date')
+			        )
+			    )
+			
+			VAR ValorAjustado = IF(MediaPorPais > 1, MediaPorPais / 100, MediaPorPais)
+			
+			RETURN
+			ROUND(ValorAjustado, 3)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Visuals 2.2
+		lineageTag: 5c99a9b3-f7b8-4d9f-bb53-38267e7a2e10
+
+	measure 'Average Wage Last Available' = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_or_area])),
+			        VAR UltimoAno = 
+			            CALCULATE(
+			                MAX('Fact_Wealth_Distribution'[Year]), 
+			                'Fact_Wealth_Distribution'[Year] <= AnoContexto, 
+			                NOT ISBLANK('Fact_Wealth_Distribution'[Monthly_Employee_Earnings]), 
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            MAX('Fact_Wealth_Distribution'[Monthly_Employee_Earnings]), 
+			            'Fact_Wealth_Distribution'[Year] = UltimoAno, 
+			            ALL('Dim_Date')
+			        )
+			    ),
+			    2
+			)
+			```
+		displayFolder: Visuals 2.2
+		lineageTag: ea5ba681-2f73-4526-a772-520773a83cfb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gini Last Value Available' = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        VALUES('Dim_Geography'[country_or_area]),
+			        VAR UltimoAnoDoPais = 
+			            CALCULATE(
+			                MAX('Fact_Macro_Indicators'[Year]),
+			                'Fact_Macro_Indicators'[Year] <= AnoContexto,
+			                NOT ISBLANK('Fact_Macro_Indicators'[Gini_Index]),
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            AVERAGE('Fact_Macro_Indicators'[Gini_Index]),
+			            'Fact_Macro_Indicators'[Year] = UltimoAnoDoPais,
+			            ALL('Dim_Date')
+			        )
+			    ), 
+			    2 
+			)
+			```
+		displayFolder: Visuals 2.2
+		lineageTag: 0b1ec3f3-8926-48e2-83f4-796464bbebab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Top 1% Share' = ```
+			
+			AVERAGEX(
+			    FILTER(
+			        'Fact_Wealth_Distribution', 
+			        NOT(ISBLANK('Fact_Wealth_Distribution'[Share_top_1_pct]))
+			    ),
+			    'Fact_Wealth_Distribution'[Share_top_1_pct]
+			)
+			```
+		displayFolder: Vasco
+		lineageTag: 0c855407-4c28-4d19-a39f-a566cfee8834
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Concentration Trend' = ```
+			
+			VAR CurrentShare = [Avg Top 1% Share]
+			VAR CurrentYear = SELECTEDVALUE('dim_date'[Year])
+			VAR PreviousYearValue = 
+			    CALCULATE(
+			        [Avg Top 1% Share], 
+			        ALL('dim_date'), 
+			        'dim_date'[Year] = CurrentYear - 1
+			    )
+			
+			RETURN
+			IF(
+			    ISBLANK(CurrentShare), 
+			    BLANK(), // Still hide 2024 if it's empty
+			    IF(
+			        ISBLANK(PreviousYearValue),
+			        0, // Show 0% for the first year (2010)
+			        DIVIDE(CurrentShare - PreviousYearValue, PreviousYearValue)
+			    )
+			)
+			```
+		formatString: 0
+		displayFolder: Vasco
+		lineageTag: 749003a1-1f73-4a00-a120-109a80132882
+
+		changedProperty = Name
+
+	measure Wealth_Share_Bottom_50_Last_Available = ```
+			
+			
+			VAR LastYearAvailable =CALCULATE(  
+			    MAX('fact_wealth_distribution'[Year]),
+			        NOT ISBLANK('Fact_Wealth_Distribution'[Share_Bottom_50_pct])
+			)
+			RETURN
+			CALCULATE(
+			    AVERAGE('Fact_Wealth_Distribution'[Share_Bottom_50_pct]),
+			    'fact_wealth_distribution'[Year] = LastYearAvailable
+			)
+			```
+		displayFolder: Visuals 2.3
+		lineageTag: 9954ed99-87e2-4ad8-861c-715b06ee4d76
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Max_Inclusion_Gap = ```
+			
+			VAR MaxInclusion = 
+			    MAXX(
+			        ALLSELECTED('Dim_Geography'[country_or_area]), 
+			        [Wealth_Share_Bottom_50_Last_Available]
+			    )
+			VAR MinInclusion = 
+			    MINX(
+			        ALLSELECTED(Dim_Geography[country_or_area]), 
+			        [Wealth_Share_Bottom_50_Last_Available]
+			    )
+			RETURN
+			    MaxInclusion - MinInclusion
+			```
+		displayFolder: Visuals 2.3
+		lineageTag: 02db9d37-e799-4fb9-abec-c0b30047cf14
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Life_Expectancy_Last_Available = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_code_iso3])),
+			        VAR UltimoAno = 
+			            CALCULATE(
+			                MAX('Fact_Social_Barriers'[Year]), 
+			                'Fact_Social_Barriers'[Year] <= AnoContexto, 
+			                NOT ISBLANK('Fact_Social_Barriers'[Life_Expectancy]), 
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            MAX('Fact_Social_Barriers'[Life_Expectancy]), 
+			            'Fact_Social_Barriers'[Year] = UltimoAno, 
+			            ALL('Dim_Date')
+			        )
+			    ),
+			    1
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: fcfcbee9-b68d-4a67-99e3-6ff6dc5104b0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Literacy_Rate_Last_Available = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_code_iso3])),
+			        VAR UltimoAno = 
+			            CALCULATE(
+			                MAX('Fact_Social_Barriers'[Year]), 
+			                'Fact_Social_Barriers'[Year] <= AnoContexto, 
+			                NOT ISBLANK('Fact_Social_Barriers'[Literacy Rate]), 
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            MAX('Fact_Social_Barriers'[Literacy Rate]), 
+			            'Fact_Social_Barriers'[Year] = UltimoAno, 
+			            ALL('Dim_Date')
+			        )
+			    ),
+			    2
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: 076731fb-476d-4588-a893-40f83d6e3a4e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Internet_Access_Last_Available = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_code_iso3])),
+			        VAR UltimoAno = 
+			            CALCULATE(
+			                MAX('Fact_Social_Barriers'[Year]), 
+			                'Fact_Social_Barriers'[Year] <= AnoContexto, 
+			                NOT ISBLANK('Fact_Social_Barriers'[Internet Access]), 
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            MAX('Fact_Social_Barriers'[Internet Access]), 
+			            'Fact_Social_Barriers'[Year] = UltimoAno, 
+			            ALL('Dim_Date')
+			        )
+			    ),
+			    2
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: ed9aaa87-b275-4aa0-9310-d2b81fbe6ff7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Female_Account_Last_Available = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_code_iso3])),
+			        VAR UltimoAno = 
+			            CALCULATE(
+			                MAX('Fact_Social_Barriers'[Year]), 
+			                'Fact_Social_Barriers'[Year] <= AnoContexto, 
+			                NOT ISBLANK('Fact_Social_Barriers'[Female Account Ownership]), 
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            MAX('Fact_Social_Barriers'[Female Account Ownership]), 
+			            'Fact_Social_Barriers'[Year] = UltimoAno, 
+			            ALL('Dim_Date')
+			        )
+			    ),
+			    2
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: 9c62668a-dba3-42a6-a6c4-a5b0de1e39e5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure School_Attendance_Last_Available = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_code_iso3])),
+			        VAR UltimoAno = 
+			            CALCULATE(
+			                MAX('Fact_Social_Barriers'[Year]), 
+			                'Fact_Social_Barriers'[Year] <= AnoContexto, 
+			                NOT ISBLANK('Fact_Social_Barriers'[School Attendance]), 
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            MAX('Fact_Social_Barriers'[School Attendance]), 
+			            'Fact_Social_Barriers'[Year] = UltimoAno, 
+			            ALL('Dim_Date')
+			        )
+			    ),
+			    2
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: ab0db545-0b80-449e-b38a-d0e1c819fb09
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Child Mortality (Pre-COVID)' = ```
+			
+			CALCULATE(
+			    AVERAGE(Fact_Social_Barriers[Child_Mortality]),
+			    Dim_Date[Year] >= 2015,
+			    Dim_Date[Year] <= 2019
+			)
+			
+			```
+		displayFolder: Vasco
+		lineageTag: 43d01e63-61c9-4403-a4df-7139d3bc3c92
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Life Expectancy (Pre-COVID)' = ```
+			
+			CALCULATE(
+			    AVERAGE(Fact_Social_Barriers[Life_Expectancy]),
+			    Dim_Date[Year] >= 2015,
+			    Dim_Date[Year] <= 2019
+			)
+			
+			```
+		displayFolder: Vasco
+		lineageTag: 6d27810a-3450-4ed8-95e6-f028ddcf7dde
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pre-COVID Unemployment' = ```
+			
+			CALCULATE(
+			    AVERAGE(Fact_Macro_Indicators[Unemployment_Total]),
+			    Dim_Date[Year] >= 2017,
+			    Dim_Date[Year] <= 2019
+			)
+			
+			```
+		displayFolder: Vasco
+		lineageTag: b17631c9-c446-4ab3-abf0-f75a98f9b7ef
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'COVID Peak Unemployment' = ```
+			
+			CALCULATE(
+			    MAX(Fact_Macro_Indicators[Unemployment_Total]),
+			    Dim_Date[Economic_Context] = "COVID-19 Impact"
+			)
+			
+			```
+		displayFolder: Vasco
+		lineageTag: 7c6bb672-0997-4266-8055-15aea385c8c6
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Unemployment Shock (COVID)' = ```
+			
+			[COVID Peak Unemployment] - [Pre-COVID Unemployment]
+			
+			```
+		displayFolder: Vasco
+		lineageTag: 046e9386-1682-439e-8a48-e6f1ce91507b
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Unemployment_Last_Available = ```
+			
+			VAR AnoContexto = MAX('Dim_Date'[Year])
+			RETURN
+			ROUND(
+			    AVERAGEX(
+			        KEEPFILTERS(VALUES('Dim_Geography'[country_code_iso3])),
+			        VAR UltimoAno = 
+			            CALCULATE(
+			                MAX('Fact_Macro_Indicators'[Year]), 
+			                'Fact_Macro_Indicators'[Year] <= AnoContexto, 
+			                NOT ISBLANK('Fact_Macro_Indicators'[Unemployment_Total]), 
+			                ALL('Dim_Date')
+			            )
+			        RETURN
+			        CALCULATE(
+			            MAX('Fact_Macro_Indicators'[Unemployment_Total]), 
+			            'Fact_Macro_Indicators'[Year] = UltimoAno, 
+			            ALL('Dim_Date')
+			        )
+			    ),
+			    2
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: 179c658b-004c-441b-8804-48517a2edc1e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Gini_Index_Last_Available = ```
+			
+			VAR LastYear = CALCULATE(MAX('Fact_Macro_Indicators'[Year]), NOT ISBLANK('Fact_Macro_Indicators'[Gini_Index]))
+			RETURN
+			ROUND(
+			    CALCULATE(
+			        AVERAGE('Fact_Macro_Indicators'[Gini_Index]),
+			        'Fact_Macro_Indicators'[Year] = LastYear
+			    ), 
+			    2
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: d2d23798-9c7d-4981-b191-6a72f2fa8f6d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Child_Mortality_Last_Available = ```
+			
+			VAR LastYear = CALCULATE(MAX('Fact_social_barriers'[Year]), NOT ISBLANK('Fact_Social_Barriers'[Child_Mortality]))
+			RETURN
+			ROUND(
+			    CALCULATE(
+			        AVERAGE('Fact_social_barriers'[Child_Mortality]),
+			        'Fact_social_barriers'[Year] = LastYear
+			    ), 
+			    2
+			)
+			```
+		displayFolder: Cards Page 3
+		lineageTag: 75153dbe-5737-4a93-a3fb-38965392b106
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Unemployment_Delta_2010_2014 =
+			
+			VAR Unemp2010 = CALCULATE([Unemployment_Last_Available], 'Dim_Date'[Year] = 2010)
+			VAR Unemp2014 = CALCULATE([Unemployment_Last_Available], 'Dim_Date'[Year] = 2014)
+			RETURN
+			IF(ISBLANK(Unemp2010) || ISBLANK(Unemp2014), BLANK(), Unemp2014 - Unemp2010)
+		displayFolder: Visuals Page 4
+		lineageTag: 8a484b09-0cf7-416e-8095-5b2b4eb16317
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Unemployment_Delta_2019_2022 =
+			
+			VAR Unemp2019 = CALCULATE([Unemployment_Last_Available], 'Dim_Date'[Year] = 2019)
+			VAR Unemp2022 = CALCULATE([Unemployment_Last_Available], 'Dim_Date'[Year] = 2022)
+			RETURN
+			IF(ISBLANK(Unemp2019) || ISBLANK(Unemp2022), BLANK(), Unemp2022 - Unemp2019)
+		displayFolder: Visuals Page 4
+		lineageTag: b78bc608-9cdc-4d85-aca7-221820b1d538
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		formatString: 0
+		lineageTag: e477b466-49aa-406c-90ca-e1a55369d89d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Measures Table' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 6165d3a68c6c4e2bbd76e7dff4f7ebad
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Power bi Vasco"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9f4eeb41-97b8-b9c7-423c-d1713b9d8124"
+  }
+}
